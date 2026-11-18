@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>离线星图解算工具</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>离线星图解算工具</h1>
+      <p class="sub">照片本地识别星点 · 几何哈希盲解 · 赤经赤纬 / 视场 / 旋转角 · 全程不联网</p>
+    </header>
+
+    <main>
+      <section class="panel controls">
+        <h2>1. 准备星表索引</h2>
+        <div class="row">
+          <button id="btn-demo-index" class="primary">生成内置演示星表并建库</button>
+          <label class="file-btn">
+            导入星表 CSV
+            <input id="file-catalog" type="file" accept=".csv,text/csv" hidden />
+          </label>
+          <input id="mag-limit" type="number" value="9.5" step="0.5" min="1" max="20" title="星等极限" />
+        </div>
+        <p id="index-status" class="status">尚未建库</p>
+
+        <h2>2. 导入照片</h2>
+        <div class="row">
+          <label class="file-btn wide">
+            选择深空照片（JPEG / PNG / WebP）
+            <input id="file-image" type="file" accept="image/*" hidden />
+          </label>
+        </div>
+        <p id="image-status" class="status">未选择图像</p>
+
+        <h2>3. 解算参数</h2>
+        <div class="grid2">
+          <label>比例尺下限（角秒/像元）
+            <input id="scale-lo" type="number" value="0.5" step="0.1" min="0.05" />
+          </label>
+          <label>比例尺上限（角秒/像元）
+            <input id="scale-hi" type="number" value="25" step="0.5" min="0.1" />
+          </label>
+          <label>检测阈值（σ）
+            <input id="k-sigma" type="number" value="5" step="0.5" min="2" max="12" />
+          </label>
+          <label>最大星点数
+            <input id="max-stars" type="number" value="500" step="50" min="20" />
+          </label>
+        </div>
+        <div class="row checkboxes">
+          <label><input type="checkbox" id="opt-stars" checked /> 星点标记</label>
+          <label><input type="checkbox" id="opt-names" checked /> 亮星名称</label>
+          <label><input type="checkbox" id="opt-lines" checked /> 星座连线</label>
+          <label><input type="checkbox" id="opt-dso" checked /> 星云星系</label>
+        </div>
+        <div class="row">
+          <button id="btn-solve" class="primary big" disabled>开始解算</button>
+          <button id="btn-selftest">运行引擎自检</button>
+        </div>
+        <p id="run-status" class="status"></p>
+      </section>
+
+      <section class="panel viewer">
+        <h2>图像与标注</h2>
+        <div class="canvas-wrap">
+          <canvas id="base-canvas"></canvas>
+          <canvas id="overlay-canvas"></canvas>
+        </div>
+        <div id="result" class="result hidden"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Rust + WebAssembly 核心 · 纯前端离线运行 · 索引按需分块加载</span>
+    </footer>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

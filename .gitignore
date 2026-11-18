@@ -16,3 +16,9 @@ node_modules/
 __pycache__/
 .venv/
 venv/
+
+# Rust / WASM 构建产物
+target/
+
+# 前端构建输出（web/pkg 是 wasm-bindgen 生成的绑定，纳入版本管理以便免工具链构建）
+web/dist/

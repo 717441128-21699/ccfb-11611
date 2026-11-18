@@ -1,0 +1,14 @@
+[package]
+name = "star-solver-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WebAssembly bindings for the offline plate solver"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "star_solver_wasm"
+
+[dependencies]
+star-solver-core = { path = "../star-solver-core" }
+wasm-bindgen = "=0.2.100"

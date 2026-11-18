@@ -1,0 +1,15 @@
+[package]
+name = "star-solver-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Command-line front-end: catalog indexing, image solving, synthetic self-test"
+
+[[bin]]
+name = "star-solver"
+path = "src/main.rs"
+
+[dependencies]
+star-solver-core = { path = "../star-solver-core" }
+# 图像解码只放在 CLI；核心库与 wasm 保持零依赖。
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "bmp"] }

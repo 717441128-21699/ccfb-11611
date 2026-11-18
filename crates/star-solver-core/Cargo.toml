@@ -1,0 +1,13 @@
+[package]
+name = "star-solver-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Offline blind plate-solving core: star detection, geometric-hash index, matching, TAN/SIP WCS"
+
+[lib]
+name = "star_solver_core"
+path = "src/lib.rs"
+
+# 零外部依赖：纯 std 实现，保证 wasm32-unknown-unknown 单模块可编译、可审计。
+[dependencies]
