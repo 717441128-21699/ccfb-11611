@@ -1,0 +1,33 @@
+[package]
+name = "platersol-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Offline blind plate solver core: source extraction, geometric quad hash index, WCS fitting"
+
+[lib]
+name = "platersol_core"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+
+[[bin]]
+name = "ps-builder"
+path = "src/bin/builder.rs"
+
+[[bin]]
+name = "ps-selftest"
+path = "src/bin/selftest.rs"
+
+[[bin]]
+name = "ps-solve"
+path = "src/bin/solve.rs"
+
+[[bin]]
+name = "ps-render"
+path = "src/bin/render.rs"

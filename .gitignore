@@ -16,3 +16,15 @@ node_modules/
 __pycache__/
 .venv/
 venv/
+
+# Rust build output
+target/
+
+# Generated plate-solver index data (rebuild with ps-builder)
+data/
+*.pgm
+
+# UI build output
+ui/dist/
+ui/node_modules/
+ui/public/assets/*.wasm

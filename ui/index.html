@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PlateSol · 离线天文照片星图解算</title>
+    <link rel="stylesheet" href="/src/ui/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">✦</span>
+        <div>
+          <h1>PlateSol</h1>
+          <p>离线盲解算 · 几何哈希 · WebAssembly</p>
+        </div>
+      </div>
+      <div class="status-pill" id="engineStatus" data-state="idle">引擎未加载</div>
+    </header>
+
+    <main class="layout">
+      <section class="panel viewer">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="photo"></canvas>
+          <canvas id="overlay"></canvas>
+          <div class="drop-hint" id="dropHint">
+            <strong>拖入或选择深空照片</strong>
+            <span>JPEG / PNG · 全程本地解算，不上传任何图像</span>
+          </div>
+        </div>
+        <div class="viewer-controls">
+          <label class="file-btn">
+            选择照片
+            <input type="file" id="fileInput" accept="image/*" hidden />
+          </label>
+          <div class="toggles">
+            <label><input type="checkbox" id="toggleStars" checked /> 亮星名称</label>
+            <label><input type="checkbox" id="toggleConstel" checked /> 星座连线</label>
+            <label><input type="checkbox" id="toggleDso" checked /> 星云星系</label>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel sidebar">
+        <div class="block">
+          <h2>解算参数</h2>
+          <label class="field">
+            检测阈值 (σ)
+            <input type="number" id="threshold" value="8" min="3" max="30" step="0.5" />
+          </label>
+          <label class="field">
+            哈希容差
+            <input type="number" id="hashTol" value="25" min="5" max="120" />
+          </label>
+          <label class="field">
+            一致投票阈值
+            <input type="number" id="quorum" value="4" min="2" max="12" />
+          </label>
+          <label class="field">
+            索引基础 URL
+            <input type="text" id="indexUrl" value="./data/index" />
+          </label>
+          <button class="primary" id="solveBtn" disabled>开始解算</button>
+        </div>
+
+        <div class="block" id="progressBlock" hidden>
+          <h2>进度</h2>
+          <div class="progress-stage" id="stageText">待命</div>
+          <div class="progress-bar"><div id="progressFill"></div></div>
+        </div>
+
+        <div class="block" id="resultBlock" hidden>
+          <h2>解算结果</h2>
+          <dl class="metrics">
+            <dt>中心赤经 RA</dt><dd id="ra">—</dd>
+            <dt>中心赤纬 Dec</dt><dd id="dec">—</dd>
+            <dt>视场 (水平×垂直)</dt><dd id="fov">—</dd>
+            <dt>旋转角</dt><dd id="rot">—</dd>
+            <dt>底片比例尺</dt><dd id="scale">—</dd>
+            <dt>拟合 RMS</dt><dd id="rms">—</dd>
+            <dt>匹配星数</dt><dd id="matches">—</dd>
+            <dt>耗时</dt><dd id="elapsed">—</dd>
+            <dt>索引读取</dt><dd id="io">—</dd>
+          </dl>
+        </div>
+      </aside>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
